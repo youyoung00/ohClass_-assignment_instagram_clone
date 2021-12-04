@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key key}) : super(key: key);
@@ -14,66 +17,34 @@ class HomePage extends StatelessWidget {
     'https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445__340.jpg'
   ];
 
+  List<String> imgUrl = [
+    'https://cdn.pixabay.com/photo/2021/11/21/16/00/sculpture-6814561__340.jpg',
+    'https://cdn.pixabay.com/photo/2021/11/28/16/26/bike-6830708__340.jpg',
+    'https://cdn.pixabay.com/photo/2018/03/12/12/32/woman-3219507__340.jpg',
+    'https://cdn.pixabay.com/photo/2021/11/23/13/32/forest-6818683__340.jpg',
+    'https://cdn.pixabay.com/photo/2020/09/15/20/35/couple-5574695__340.jpg'
+  ];
+
+  List<Widget> imgBtns = [];
+
+  String userName = "Votres story";
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
-        appBar: topBar(),
+        appBar: _topBar(),
         body: SingleChildScrollView(
           child: Container(
             width: size.width,
             child: Column(
               children: [
-                circleAvatars(size),
-                Container(
-                  padding: const EdgeInsets.only(top: 12,),
-                  height: 90,
-                  color: Colors.red,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        color: Colors.red,
-                        width: 80,
-                        child: CircleAvatar(
-                          maxRadius: 25.0,
-                          backgroundImage: NetworkImage(avatarUrl[1]),
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Arneo Paris',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          Text('Arneo'),
-                        ],
-                      ),
-                      Container(
-                        child: IconButton(
-                         icon: Icon(Icons.more_horiz),
-                        ),
-                      )
-                    ],
-                  )
-                ),
-                Container(
-                  height: size.height/3.5,
-                  color: Colors.green,
-                ),
-                Container(
-                  height: 90,
-                  color: Colors.purple,
-                ),
-                Container(
-                  height: size.width,
-                  color: Colors.brown,
-                ),
+                circleAvatars(size: size),
+                centerTopBar(),
+                centerImg(size: size),
+                centerBtmBar(size: size),
+                mainTxt(size: size),
               ],
             ),
           ),
@@ -81,7 +52,7 @@ class HomePage extends StatelessWidget {
         bottomNavigationBar: btmBar());
   }
 
-  Widget topBar(){
+  Widget _topBar() {
     return AppBar(
       backgroundColor: Colors.white10,
       elevation: 0.0,
@@ -99,7 +70,7 @@ class HomePage extends StatelessWidget {
         IconButton(
             onPressed: () {},
             icon: Icon(
-              Icons.favorite,
+              Icons.favorite_border,
               color: Colors.black,
             )),
         IconButton(
@@ -111,18 +82,20 @@ class HomePage extends StatelessWidget {
       ],
     );
   }
-  Widget circleAvatars(size){
+
+  Widget circleAvatars({@required Size size}) {
     return Container(
-      height: size.width/3,
+      height: size.width / 3,
       // color: Colors.blue,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: avatarUrl.length,
-          itemBuilder: (BuildContext context, int i){
+          itemBuilder: (BuildContext context, int i) {
             return Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
                   child: Container(
                     width: 80,
                     height: 80,
@@ -131,17 +104,170 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text("Votres story",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold
-                  ),
+                Text(
+                  "Votres story",
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 )
               ],
             );
-          }
+          }),
+    );
+  }
+
+  Widget centerTopBar() {
+    return Container(
+        padding: const EdgeInsets.only(
+          top: 12,
+        ),
+        height: 80,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 80,
+                  child: CircleAvatar(
+                    maxRadius: 25.0,
+                    backgroundImage: NetworkImage(avatarUrl[1]),
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Arneo Paris',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    Text('Arneo'),
+                  ],
+                ),
+              ],
+            ),
+            Container(
+              child: IconButton(
+                icon: Icon(
+                  Icons.more_horiz,
+                  color: Colors.black,
+                ),
+              ),
+            )
+          ],
+        ));
+  }
+
+  Widget centerImg({@required Size size}) {
+    return Container(
+      height: size.height / 3.5,
+      color: Colors.green,
+      child: PageView.builder(
+        itemCount: imgUrl.length,
+        itemBuilder: (BuildContext context, int i) {
+          return Container(
+            child: Image.network(
+              imgUrl[i],
+              fit: BoxFit.cover,
+            ),
+          );
+        },
       ),
     );
   }
+
+  Widget centerBtmBar({@required Size size}) {
+    return Container(
+      height: 60,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.favorite_border,
+                  color: Colors.black,
+                  size: 32,
+                ),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.chat_bubble_outline,
+                  color: Colors.black,
+                  size: 32,
+                ),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.send,
+                  color: Colors.black,
+                  size: 32,
+                ),
+                onPressed: () {},
+              ),
+            ],
+          ),
+          Container(
+            width: size.width / 3,
+            child: Row(
+                children: imgUrl.map((String e) {
+              return Container(
+                  width: 14,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.fiber_manual_record,
+                      size: 12,
+                      color: Colors.grey,
+                    ),
+                  ));
+            }).toList()),
+          ),
+          Container(
+            child: IconButton(
+              icon: Icon(
+                Icons.bookmark_border,
+                color: Colors.black,
+                size: 32,
+              ),
+              onPressed: () {},
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget mainTxt({@required Size size}) {
+    return Container(
+      width: size.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              "I've watched those eyes light up with a smile",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              "${userName} I've watched those eyes light up with a smile River in the not good times Oh, you taught me all that I know (I know)",
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget btmBar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
