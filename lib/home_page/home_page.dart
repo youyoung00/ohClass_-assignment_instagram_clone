@@ -6,9 +6,14 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   List<String> avatarUrl = [
     'https://cdn.pixabay.com/photo/2018/01/21/14/16/woman-3096664__340.jpg',
     'https://cdn.pixabay.com/photo/2017/08/01/08/29/woman-2563491__340.jpg',
@@ -17,22 +22,47 @@ class HomePage extends StatelessWidget {
     'https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445__340.jpg'
   ];
 
-  List<String> imgUrl = [
-    'https://cdn.pixabay.com/photo/2021/11/21/16/00/sculpture-6814561__340.jpg',
-    'https://cdn.pixabay.com/photo/2021/11/28/16/26/bike-6830708__340.jpg',
-    'https://cdn.pixabay.com/photo/2018/03/12/12/32/woman-3219507__340.jpg',
-    'https://cdn.pixabay.com/photo/2021/11/23/13/32/forest-6818683__340.jpg',
-    'https://cdn.pixabay.com/photo/2020/09/15/20/35/couple-5574695__340.jpg'
+  List<Map<String,dynamic>> imgInfo = [
+    {
+      'img' : 'https://cdn.pixabay.com/photo/2021/11/21/16/00/sculpture-6814561__340.jpg',
+      'icon' : Icon(Icons.fiber_manual_record)
+    },
+
+    {
+      'img' :  'https://cdn.pixabay.com/photo/2021/11/28/16/26/bike-6830708__340.jpg',
+      'icon' : Icon(Icons.fiber_manual_record)
+    },
+
+    {
+      'img' :  'https://cdn.pixabay.com/photo/2018/03/12/12/32/woman-3219507__340.jpg',
+      'icon' : Icon(Icons.fiber_manual_record)
+    },
+
+    {
+      'img' :  'https://cdn.pixabay.com/photo/2021/11/23/13/32/forest-6818683__340.jpg',
+      'icon' : Icon(Icons.fiber_manual_record)
+    },
+    {
+      'img' :  'https://cdn.pixabay.com/photo/2020/09/15/20/35/couple-5574695__340.jpg',
+      'icon' : Icon(Icons.fiber_manual_record)
+    }
   ];
 
-  List<Widget> imgBtns = [];
+  int _selectIndex = 0;
 
   String userName = "Votres story";
+
+  PageController pageController = PageController();
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
         appBar: _topBar(),
         body: SingleChildScrollView(
@@ -40,21 +70,21 @@ class HomePage extends StatelessWidget {
             width: size.width,
             child: Column(
               children: [
-                circleAvatars(size: size),
-                centerTopBar(),
-                centerImg(size: size),
-                centerBtmBar(size: size),
-                mainTxt(size: size),
+                _circleAvatars(size: size),
+                _centerTopBar(),
+                _centerImg(size: size),
+                _centerBtmBar(size: size),
+                _mainTxt(size: size),
               ],
             ),
           ),
         ),
-        bottomNavigationBar: btmBar());
+        bottomNavigationBar: _btmBar());
   }
 
   Widget _topBar() {
     return AppBar(
-      backgroundColor: Colors.white10,
+      backgroundColor: Colors.white,
       elevation: 0.0,
       title: Text(
         "Instagram",
@@ -83,10 +113,28 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget circleAvatars({@required Size size}) {
+  Widget _circleAvatars({@required Size size}) {
     return Container(
       height: size.width / 3,
-      // color: Colors.blue,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            offset: const Offset(
+              0.0,
+              0.0,
+            ),
+            blurRadius: 4.0,
+            spreadRadius: 0.2,
+          ), //BoxShadow
+          BoxShadow(
+            color: Colors.white,
+            offset: const Offset(0.0, 0.0),
+            blurRadius: 0.0,
+            spreadRadius: 0.0,
+          ), //BoxShadow
+        ],
+      ),
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: avatarUrl.length,
@@ -114,7 +162,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget centerTopBar() {
+  Widget _centerTopBar() {
     return Container(
         padding: const EdgeInsets.only(
           top: 12,
@@ -158,16 +206,22 @@ class HomePage extends StatelessWidget {
         ));
   }
 
-  Widget centerImg({@required Size size}) {
+  Widget _centerImg({@required Size size}) {
     return Container(
       height: size.height / 3.5,
       color: Colors.green,
       child: PageView.builder(
-        itemCount: imgUrl.length,
+        controller: pageController,
+        onPageChanged: (num){
+          setState(() {
+            _selectIndex = num;
+          });
+        },
+        itemCount: imgInfo.length,
         itemBuilder: (BuildContext context, int i) {
           return Container(
             child: Image.network(
-              imgUrl[i],
+              imgInfo[i]['img'],
               fit: BoxFit.cover,
             ),
           );
@@ -176,7 +230,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget centerBtmBar({@required Size size}) {
+  Widget _centerBtmBar({@required Size size}) {
     return Container(
       height: 60,
       child: Row(
@@ -213,17 +267,25 @@ class HomePage extends StatelessWidget {
           Container(
             width: size.width / 3,
             child: Row(
-                children: imgUrl.map((String e) {
+                children: imgInfo.map((e) {
               return Container(
                   width: 14,
                   child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.fiber_manual_record,
-                      size: 12,
-                      color: Colors.grey,
-                    ),
-                  ));
+                    // icon: e['icon'],
+                    onPressed: () {
+                      pageController.jumpToPage(imgInfo.indexOf(e));
+                      // print(e['icon']);
+                      setState(() {
+                        _selectIndex = imgInfo.indexOf(e);
+                      });
+                    },
+                    icon: e['icon'],
+                    iconSize: 12.0,
+                    color: _selectIndex == imgInfo.indexOf(e)
+                        ? Colors.blue
+                        : Colors.grey
+                  )
+                );
             }).toList()),
           ),
           Container(
@@ -241,7 +303,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget mainTxt({@required Size size}) {
+  Widget _mainTxt({@required Size size}) {
     return Container(
       width: size.width,
       child: Column(
@@ -256,11 +318,19 @@ class HomePage extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.all(10),
-            child: Text(
-              "${userName} I've watched those eyes light up with a smile River in the not good times Oh, you taught me all that I know (I know)",
-              style: TextStyle(
-                fontSize: 18,
-              ),
+            child: Text.rich(
+              TextSpan(text: '',
+                children: <TextSpan>[
+                TextSpan(text: userName,
+                    style: TextStyle(fontWeight: FontWeight.bold)
+                ),
+                TextSpan(text: ''' I heard that you're settled down That you found a girl and you're married now I heard that your dreams came true Guess she gave you things, I didn't give to youOld friend, why are you so shy?Ain't like you to hold back or hide from the light I hate to turn up out of the blue, uninvited But I couldn't stay away, I couldn't fight it I had hoped you'd see my face And that you'd be reminded that for me, it isn't over Never mind, I'll find someone like youI wish nothing but the best for you''',),
+                TextSpan(text: ' #Proud',
+                  style: TextStyle(
+                    color: Colors.blue
+                  ),
+                ),
+              ]),
             ),
           ),
         ],
@@ -268,7 +338,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget btmBar() {
+  Widget _btmBar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       items: [
