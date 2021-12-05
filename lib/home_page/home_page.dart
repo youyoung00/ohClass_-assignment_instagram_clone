@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
@@ -22,29 +20,31 @@ class _HomePageState extends State<HomePage> {
     'https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445__340.jpg'
   ];
 
-  List<Map<String,dynamic>> imgInfo = [
+  List<Map<String, dynamic>> imgInfo = [
     {
-      'img' : 'https://cdn.pixabay.com/photo/2021/11/21/16/00/sculpture-6814561__340.jpg',
-      'icon' : Icon(Icons.fiber_manual_record)
-    },
-
-    {
-      'img' :  'https://cdn.pixabay.com/photo/2021/11/28/16/26/bike-6830708__340.jpg',
-      'icon' : Icon(Icons.fiber_manual_record)
-    },
-
-    {
-      'img' :  'https://cdn.pixabay.com/photo/2018/03/12/12/32/woman-3219507__340.jpg',
-      'icon' : Icon(Icons.fiber_manual_record)
-    },
-
-    {
-      'img' :  'https://cdn.pixabay.com/photo/2021/11/23/13/32/forest-6818683__340.jpg',
-      'icon' : Icon(Icons.fiber_manual_record)
+      'img':
+          'https://cdn.pixabay.com/photo/2021/11/21/16/00/sculpture-6814561__340.jpg',
+      'icon': Icon(Icons.fiber_manual_record)
     },
     {
-      'img' :  'https://cdn.pixabay.com/photo/2020/09/15/20/35/couple-5574695__340.jpg',
-      'icon' : Icon(Icons.fiber_manual_record)
+      'img':
+          'https://cdn.pixabay.com/photo/2021/11/28/16/26/bike-6830708__340.jpg',
+      'icon': Icon(Icons.fiber_manual_record)
+    },
+    {
+      'img':
+          'https://cdn.pixabay.com/photo/2018/03/12/12/32/woman-3219507__340.jpg',
+      'icon': Icon(Icons.fiber_manual_record)
+    },
+    {
+      'img':
+          'https://cdn.pixabay.com/photo/2021/11/23/13/32/forest-6818683__340.jpg',
+      'icon': Icon(Icons.fiber_manual_record)
+    },
+    {
+      'img':
+          'https://cdn.pixabay.com/photo/2020/09/15/20/35/couple-5574695__340.jpg',
+      'icon': Icon(Icons.fiber_manual_record)
     }
   ];
 
@@ -143,13 +143,19 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-                  child: Container(
-                    width: 80,
-                    height: 80,
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(avatarUrl[i]),
-                    ),
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                  child: Stack(
+                    children: [
+                      Container(
+                        // color: Colors.blue,
+                        width: 74,
+                        height: 74,
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(avatarUrl[i]),
+                        ),
+                      ),
+                      _avatarCheck(i),
+                    ],
                   ),
                 ),
                 Text(
@@ -160,6 +166,54 @@ class _HomePageState extends State<HomePage> {
             );
           }),
     );
+  }
+
+  Widget _avatarCheck (int i){
+    Widget checkedWidget = null;
+
+    if(avatarUrl[i] == avatarUrl[0]){
+      checkedWidget = Container(
+          alignment: Alignment.bottomRight,
+          width: 74,
+          height: 74,
+          child: SizedBox(
+          width: 30,
+          height: 30,
+          child: FloatingActionButton(
+            onPressed: (){},
+            child: Icon(Icons.add,),
+          )
+        ),
+      );
+    } else if (avatarUrl[i] == avatarUrl[1]){
+      checkedWidget = Positioned(
+        top: 70,
+        left: 20 ,
+        child: Container(
+          color: Colors.red,
+        width: 40,
+        height: 40,
+          child: Card(
+            color: Colors.purpleAccent,
+            child: Text("LIVE",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 10, fontWeight: FontWeight.bold
+              ),
+            ),
+          ),
+        ),
+      );
+    } else {
+      checkedWidget = Container(
+          alignment: Alignment.bottomRight,
+          width: 74,
+          height: 74,
+          child: Container()
+      );
+    }
+    return checkedWidget;
   }
 
   Widget _centerTopBar() {
@@ -212,7 +266,7 @@ class _HomePageState extends State<HomePage> {
       color: Colors.green,
       child: PageView.builder(
         controller: pageController,
-        onPageChanged: (num){
+        onPageChanged: (num) {
           setState(() {
             _selectIndex = num;
           });
@@ -271,21 +325,19 @@ class _HomePageState extends State<HomePage> {
               return Container(
                   width: 14,
                   child: IconButton(
-                    // icon: e['icon'],
-                    onPressed: () {
-                      pageController.jumpToPage(imgInfo.indexOf(e));
-                      // print(e['icon']);
-                      setState(() {
-                        _selectIndex = imgInfo.indexOf(e);
-                      });
-                    },
-                    icon: e['icon'],
-                    iconSize: 12.0,
-                    color: _selectIndex == imgInfo.indexOf(e)
-                        ? Colors.blue
-                        : Colors.grey
-                  )
-                );
+                      // icon: e['icon'],
+                      onPressed: () {
+                        pageController.jumpToPage(imgInfo.indexOf(e));
+                        // print(e['icon']);
+                        setState(() {
+                          _selectIndex = imgInfo.indexOf(e);
+                        });
+                      },
+                      icon: e['icon'],
+                      iconSize: 12.0,
+                      color: _selectIndex == imgInfo.indexOf(e)
+                          ? Colors.blue
+                          : Colors.grey));
             }).toList()),
           ),
           Container(
@@ -319,16 +371,17 @@ class _HomePageState extends State<HomePage> {
           Container(
             padding: const EdgeInsets.all(10),
             child: Text.rich(
-              TextSpan(text: '',
-                children: <TextSpan>[
-                TextSpan(text: userName,
-                    style: TextStyle(fontWeight: FontWeight.bold)
+              TextSpan(text: '', children: <TextSpan>[
+                TextSpan(
+                    text: userName,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(
+                  text:
+                      ''' I heard that you're settled down That you found a girl and you're married now I heard that your dreams came true Guess she gave you things, I didn't give to youOld friend, why are you so shy?Ain't like you to hold back or hide from the light I hate to turn up out of the blue, uninvited But I couldn't stay away, I couldn't fight it I had hoped you'd see my face And that you'd be reminded that for me, it isn't over Never mind, I'll find someone like youI wish nothing but the best for you''',
                 ),
-                TextSpan(text: ''' I heard that you're settled down That you found a girl and you're married now I heard that your dreams came true Guess she gave you things, I didn't give to youOld friend, why are you so shy?Ain't like you to hold back or hide from the light I hate to turn up out of the blue, uninvited But I couldn't stay away, I couldn't fight it I had hoped you'd see my face And that you'd be reminded that for me, it isn't over Never mind, I'll find someone like youI wish nothing but the best for you''',),
-                TextSpan(text: ' #Proud',
-                  style: TextStyle(
-                    color: Colors.blue
-                  ),
+                TextSpan(
+                  text: ' #Proud',
+                  style: TextStyle(color: Colors.blue),
                 ),
               ]),
             ),
