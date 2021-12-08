@@ -1,10 +1,13 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:instargrame_assignment/data/fake_datas.dart';
+import 'package:instargrame_assignment/model/user_data.dart';
 
 class HomePage extends StatefulWidget {
+
+
+
   HomePage({Key key}) : super(key: key);
 
   @override
@@ -12,15 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> avatarUrl = [
-    'https://cdn.pixabay.com/photo/2018/01/21/14/16/woman-3096664__340.jpg',
-    'https://cdn.pixabay.com/photo/2017/08/01/08/29/woman-2563491__340.jpg',
-    'https://cdn.pixabay.com/photo/2018/03/12/12/32/woman-3219507__340.jpg',
-    'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166__340.jpg',
-    'https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445__340.jpg'
-  ];
 
-  List<Map<String, dynamic>> imgInfo = [
+  List<Map<String, dynamic>> imgData = [
     {
       'img':
           'https://cdn.pixabay.com/photo/2021/11/21/16/00/sculpture-6814561__340.jpg',
@@ -50,15 +46,7 @@ class _HomePageState extends State<HomePage> {
 
   int _selectIndex = 0;
 
-  String userName = "Votres story";
-
   PageController pageController = PageController();
-
-  @override
-  void dispose() {
-    pageController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,11 +58,93 @@ class _HomePageState extends State<HomePage> {
             width: size.width,
             child: Column(
               children: [
-                _circleAvatars(size: size),
+                Container(
+                  height: size.width / 3.2,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      Container(
+                        height: 90,
+                        width: 74,
+                        child: CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(loginUser.userImg),
+                        ),
+                      ),
+                      ...fakeUser.map((e) => Container(
+                        // color: Colors.blue,
+                        width: 74,
+                        height: 90,
+                        child: CircleAvatar(
+                          backgroundImage:
+                          NetworkImage(e.userImg),
+                        ),
+                      ),).toList(),
+                        // Expanded(
+                        //   child: ListView(
+                        //     // physics: NeverScrollableScrollPhysics(),
+                        //     scrollDirection: Axis.horizontal,
+                        //     children: [
+                        //       Column(
+                        //         children: [
+                        //           Padding(
+                        //             padding: const EdgeInsets.symmetric(
+                        //                 horizontal: 5, vertical: 5),
+                        //             child: Stack(
+                        //               children: [
+                        //                 Container(
+                        //                   // color: Colors.blue,
+                        //                   width: 74,
+                        //                   height: 90,
+                        //                   child: CircleAvatar(
+                        //                     backgroundImage:
+                        //                         NetworkImage(widget.otherUser.userImg),
+                        //                   ),
+                        //                 ),
+                        //                 // _avatarCheck(i),
+                        //                 if (this.widget.otherUser.isLive)
+                        //                   Positioned(
+                        //                     bottom: -4,
+                        //                     right: 16,
+                        //                     child: Card(
+                        //                       color: Colors.deepPurple,
+                        //                       child: Padding(
+                        //                         padding:
+                        //                             const EdgeInsets.all(3.0),
+                        //                         child: Text(
+                        //                           "LIVE",
+                        //                           style: TextStyle(
+                        //                             color: Colors.white,
+                        //                             fontSize: 12,
+                        //                             fontWeight: FontWeight.bold,
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                     ),
+                        //                   ),
+                        //               ],
+                        //             ),
+                        //           ),
+                        //           Container(
+                        //             // color: Colors.red,
+                        //             child: Text(
+                        //               widget.otherUser.userName,
+                        //               style:
+                        //                   TextStyle(fontWeight: FontWeight.bold),
+                        //             ),
+                        //           )
+                        //         ],
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                    ],
+                  ),
+                ),
                 _centerTopBar(),
                 _centerImg(size: size),
                 _centerBtmBar(size: size),
-                _mainTxt(size: size),
+                _mainTxt(size: size, userName: loginUser.userName),
               ],
             ),
           ),
@@ -84,7 +154,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _topBar() {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white10,
       elevation: 0.0,
       title: Text(
         "Instagram",
@@ -113,108 +183,56 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _circleAvatars({@required Size size}) {
-    return Container(
-      height: size.width / 3,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            offset: const Offset(
-              0.0,
-              0.0,
-            ),
-            blurRadius: 4.0,
-            spreadRadius: 0.2,
-          ), //BoxShadow
-          BoxShadow(
-            color: Colors.white,
-            offset: const Offset(0.0, 0.0),
-            blurRadius: 0.0,
-            spreadRadius: 0.0,
-          ), //BoxShadow
-        ],
-      ),
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: avatarUrl.length,
-          itemBuilder: (BuildContext context, int i) {
-            return Column(
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                  child: Stack(
-                    children: [
-                      Container(
-                        // color: Colors.blue,
-                        width: 74,
-                        height: 74,
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(avatarUrl[i]),
-                        ),
-                      ),
-                      _avatarCheck(i),
-                    ],
-                  ),
-                ),
-                Text(
-                  "Votres story",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )
-              ],
-            );
-          }),
-    );
-  }
+  // Widget _circleAvatars({@required Size size}) {}
 
-  Widget _avatarCheck (int i){
-    Widget checkedWidget = null;
-
-    if(avatarUrl[i] == avatarUrl[0]){
-      checkedWidget = Container(
-          alignment: Alignment.bottomRight,
-          width: 74,
-          height: 74,
-          child: SizedBox(
-          width: 30,
-          height: 30,
-          child: FloatingActionButton(
-            onPressed: (){},
-            child: Icon(Icons.add,),
-          )
-        ),
-      );
-    } else if (avatarUrl[i] == avatarUrl[1]){
-      checkedWidget = Positioned(
-        top: 70,
-        left: 20 ,
-        child: Container(
-          color: Colors.red,
-        width: 40,
-        height: 40,
-          child: Card(
-            color: Colors.purpleAccent,
-            child: Text("LIVE",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 10, fontWeight: FontWeight.bold
-              ),
-            ),
-          ),
-        ),
-      );
-    } else {
-      checkedWidget = Container(
-          alignment: Alignment.bottomRight,
-          width: 74,
-          height: 74,
-          child: Container()
-      );
-    }
-    return checkedWidget;
-  }
+  // Widget _avatarCheck (int i){
+  //   Widget checkedWidget = null;
+  //
+  //   if(user == avatarData[0]){
+  //     checkedWidget = Container(
+  //       // color: Colors.green,
+  //         alignment: Alignment.bottomRight,
+  //         width: 80,
+  //         height: 82,
+  //         child: Container(
+  //           // color: Colors.red,
+  //           width: 40,
+  //           height: 30,
+  //           child: FloatingActionButton(
+  //             onPressed: (){},
+  //             child: Icon(Icons.add,),
+  //           ),
+  //         ),
+  //     );
+  //   } else if (avatarData[i] == avatarData[1]){
+  //     checkedWidget = Container(
+  //       width: 80,
+  //       height: 82,
+  //       alignment: Alignment.bottomCenter,
+  //       child: Card(
+  //         color: Colors.purpleAccent,
+  //         child: Padding(
+  //           padding: const EdgeInsets.all(4.0),
+  //           child: Text("LIVE",
+  //             textAlign: TextAlign.center,
+  //             style: TextStyle(
+  //               color: Colors.white,
+  //               fontSize: 10, fontWeight: FontWeight.bold
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     );
+  //   } else {
+  //     checkedWidget = Container(
+  //         alignment: Alignment.bottomRight,
+  //         width: 80,
+  //         height: 82,
+  //         child: Container()
+  //     );
+  //   }
+  //   return checkedWidget;
+  // }
 
   Widget _centerTopBar() {
     return Container(
@@ -231,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                   width: 80,
                   child: CircleAvatar(
                     maxRadius: 25.0,
-                    backgroundImage: NetworkImage(avatarUrl[1]),
+                    backgroundImage: NetworkImage(loginUser.userImg),
                   ),
                 ),
                 Column(
@@ -239,11 +257,11 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Arneo Paris',
+                      loginUser.userName,
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    Text('Arneo'),
+                    Text('주소'),
                   ],
                 ),
               ],
@@ -271,11 +289,11 @@ class _HomePageState extends State<HomePage> {
             _selectIndex = num;
           });
         },
-        itemCount: imgInfo.length,
+        itemCount: imgData.length,
         itemBuilder: (BuildContext context, int i) {
           return Container(
             child: Image.network(
-              imgInfo[i]['img'],
+              imgData[i]['img'],
               fit: BoxFit.cover,
             ),
           );
@@ -321,21 +339,21 @@ class _HomePageState extends State<HomePage> {
           Container(
             width: size.width / 3,
             child: Row(
-                children: imgInfo.map((e) {
+                children: imgData.map((e) {
               return Container(
                   width: 14,
                   child: IconButton(
                       // icon: e['icon'],
                       onPressed: () {
-                        pageController.jumpToPage(imgInfo.indexOf(e));
+                        pageController.jumpToPage(imgData.indexOf(e));
                         // print(e['icon']);
                         setState(() {
-                          _selectIndex = imgInfo.indexOf(e);
+                          _selectIndex = imgData.indexOf(e);
                         });
                       },
                       icon: e['icon'],
                       iconSize: 12.0,
-                      color: _selectIndex == imgInfo.indexOf(e)
+                      color: _selectIndex == imgData.indexOf(e)
                           ? Colors.blue
                           : Colors.grey));
             }).toList()),
@@ -355,7 +373,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _mainTxt({@required Size size}) {
+  Widget _mainTxt({@required Size size, @required String userName}) {
     return Container(
       width: size.width,
       child: Column(
