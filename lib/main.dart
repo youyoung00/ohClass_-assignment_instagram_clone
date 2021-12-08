@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instargrame_assignment/data/fake_datas.dart';
-import 'package:instargrame_assignment/home_page/home_page.dart';
+import 'package:instargrame_assignment/pages/login_page/login_page.dart';
 
 import 'model/user_data.dart';
 
@@ -14,7 +13,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }
