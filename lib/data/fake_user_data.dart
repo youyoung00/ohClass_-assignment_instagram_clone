@@ -20,21 +20,21 @@ final List<OtherUser> fakeUser = [
     userName: 'Chistopher',
     userImg: 'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166__340.jpg',
     userAddress: '프랑스 파리',
-    isLive: true,
+    isLive: false,
   ),
 
   OtherUser(
     userName: 'Connor',
     userImg: 'https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445__340.jpg',
     userAddress: '독일 베를린',
-    isLive: true,
+    isLive: false,
   ),
 
   OtherUser(
     userName: 'Everett',
     userImg: 'https://cdn.pixabay.com/photo/2017/08/01/08/29/woman-2563491__340.jpg',
     userAddress: '중국 베이징',
-    isLive: true,
+    isLive: false,
   ),
 ];
 
