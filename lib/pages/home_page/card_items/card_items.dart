@@ -5,11 +5,14 @@ import 'package:instargrame_assignment/model/user_data.dart';
 
 class CardItem extends StatefulWidget {
   final CardItemData cardItemData;
-  final OtherUser otherUser;
 
-  const CardItem(
-      {Key? key, required this.cardItemData, required this.otherUser})
-      : super(key: key);
+  // final OtherUser otherUser;
+
+  const CardItem({
+    Key? key,
+    required this.cardItemData,
+    // required this.otherUser,
+  }) : super(key: key);
 
   @override
   State<CardItem> createState() => _CardItemState();
@@ -28,7 +31,7 @@ class _CardItemState extends State<CardItem> {
         _cardTopBar(),
         _cardImg(size: size),
         _cardBtmBar(size: size),
-        _cardMainTxt(size: size, userName: loginUser.userName),
+        _cardMainTxt(size: size, userName: loginUser.userAddress),
       ],
     );
   }

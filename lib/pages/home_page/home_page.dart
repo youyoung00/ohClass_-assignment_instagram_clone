@@ -24,11 +24,10 @@ class _HomePageState extends State<HomePage> {
                 thickness: 1.0,
               ),
               ...fakeCardItems
-                  .map((e) => CardItem(
+                  .map<Widget>((e) => CardItem(
                         cardItemData: e,
-
-                      ))
-                  .toList(),
+                        // otherUser: null,
+                      )).toList(),
             ],
           ),
         ),
