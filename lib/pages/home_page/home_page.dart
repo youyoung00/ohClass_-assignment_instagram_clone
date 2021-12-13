@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instargrame_assignment/data/fake_user_data.dart';
 import 'package:instargrame_assignment/pages/album_page/album_page.dart';
 import 'package:instargrame_assignment/pages/home_page/card_items/card_items.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -24,14 +23,19 @@ class _HomePageState extends State<HomePage> {
               Divider(
                 thickness: 1.0,
               ),
-              ...fakeCardItems.map((e) => CardItem(cardItemData: e)).toList(),
+              ...fakeCardItems
+                  .map((e) => CardItem(
+                        cardItemData: e,
+
+                      ))
+                  .toList(),
             ],
           ),
         ),
         bottomNavigationBar: _btmBar());
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return AppBar(
       backgroundColor: Colors.white10,
       elevation: 0.0,
@@ -151,11 +155,10 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             decoration: BoxDecoration(
                                 color: Colors.purpleAccent,
-                                border:
-                                    Border.all(
-                                      color: Colors.white,
-                                      width: 2,
-                                    ),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2,
+                                ),
                                 borderRadius: BorderRadius.circular(4)),
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
@@ -178,9 +181,8 @@ class _HomePageState extends State<HomePage> {
                       child: Text(
                         e.userName,
                         style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: e.isLive ? FontWeight.bold : null
-                        ),
+                            fontSize: 14,
+                            fontWeight: e.isLive ? FontWeight.bold : null),
                       ),
                     ),
                   ),

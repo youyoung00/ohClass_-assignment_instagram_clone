@@ -1,23 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instargrame_assignment/data/fake_user_data.dart';
 import 'package:instargrame_assignment/model/card_item_data.dart';
 import 'package:instargrame_assignment/model/user_data.dart';
 
-
 class CardItem extends StatefulWidget {
-
   final CardItemData cardItemData;
   final OtherUser otherUser;
 
-  const CardItem({Key key, this.cardItemData, this.otherUser}) : super(key: key);
+  const CardItem(
+      {Key? key, required this.cardItemData, required this.otherUser})
+      : super(key: key);
 
   @override
   State<CardItem> createState() => _CardItemState();
 }
 
 class _CardItemState extends State<CardItem> {
-
   PageController pageController = PageController();
 
   int _selectIndex = 0;
@@ -30,7 +28,7 @@ class _CardItemState extends State<CardItem> {
         _cardTopBar(),
         _cardImg(size: size),
         _cardBtmBar(size: size),
-        _cardMainTxt(size: size,userName: loginUser.userName),
+        _cardMainTxt(size: size, userName: loginUser.userName),
       ],
     );
   }
@@ -60,7 +58,7 @@ class _CardItemState extends State<CardItem> {
                     Text(
                       loginUser.userName,
                       style:
-                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Text(loginUser.userAddress),
                   ],
@@ -80,7 +78,7 @@ class _CardItemState extends State<CardItem> {
         ));
   }
 
-  Widget _cardImg({@required Size size}) {
+  Widget _cardImg({required Size size}) {
     return Container(
       height: size.height / 3.5,
       color: Colors.green,
@@ -104,7 +102,7 @@ class _CardItemState extends State<CardItem> {
     );
   }
 
-  Widget _cardBtmBar({@required Size size}) {
+  Widget _cardBtmBar({required Size size}) {
     return Container(
       height: 60,
       child: Row(
@@ -142,21 +140,21 @@ class _CardItemState extends State<CardItem> {
             width: size.width / 3,
             child: Row(
                 children: fakeCardItems.map((e) {
-                  return Container(
-                      width: 14,
-                      child: IconButton(
-                          onPressed: () {
-                            pageController.jumpToPage(fakeCardItems.indexOf(e));
-                            setState(() {
-                              _selectIndex = fakeCardItems.indexOf(e);
-                            });
-                          },
-                          icon: Icon(Icons.fiber_manual_record),
-                          iconSize: 12.0,
-                          color: _selectIndex == fakeCardItems.indexOf(e)
-                              ? Colors.blue
-                              : Colors.grey));
-                }).toList()),
+              return Container(
+                  width: 14,
+                  child: IconButton(
+                      onPressed: () {
+                        pageController.jumpToPage(fakeCardItems.indexOf(e));
+                        setState(() {
+                          _selectIndex = fakeCardItems.indexOf(e);
+                        });
+                      },
+                      icon: Icon(Icons.fiber_manual_record),
+                      iconSize: 12.0,
+                      color: _selectIndex == fakeCardItems.indexOf(e)
+                          ? Colors.blue
+                          : Colors.grey));
+            }).toList()),
           ),
           Container(
             child: IconButton(
@@ -173,7 +171,10 @@ class _CardItemState extends State<CardItem> {
     );
   }
 
-  Widget _cardMainTxt({@required Size size, @required String userName}) {
+  Widget _cardMainTxt({
+    required Size size,
+    required String userName,
+  }) {
     return Container(
       width: size.width,
       child: Column(
@@ -189,20 +190,20 @@ class _CardItemState extends State<CardItem> {
           Container(
             padding: const EdgeInsets.all(10),
             child: Text.rich(
-              TextSpan(text: '', children: <TextSpan>[
-                TextSpan(
-                    text: loginUser.userName,
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(
-                  text:
-                  widget.cardItemData.cardMainTxt,
-                ),
-                TextSpan(
-                  text: widget.cardItemData.cardTag,
-                  style: TextStyle(color: Colors.blue),
-                ),
-
-              ],
+              TextSpan(
+                text: '',
+                children: <TextSpan>[
+                  TextSpan(
+                      text: loginUser.userName,
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(
+                    text: widget.cardItemData.cardMainTxt,
+                  ),
+                  TextSpan(
+                    text: widget.cardItemData.cardTag,
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ],
               ),
             ),
           ),

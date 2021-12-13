@@ -7,9 +7,9 @@ class CardItemData{
   final String cardTitle;
 
   CardItemData({
-      this.cardImageUrl,
-      this.cardMainTxt,
-      this.cardTag,
-      this.cardTitle,
+   required this.cardImageUrl,
+   required this.cardMainTxt,
+   required this.cardTag,
+   required this.cardTitle,
   });
 }

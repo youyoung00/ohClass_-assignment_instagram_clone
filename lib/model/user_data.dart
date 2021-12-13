@@ -6,19 +6,19 @@ class User {
   final bool isLive;
 
   User({
-    this.userImg,
-    this.userName,
-    this.isLive,
-    this.userAddress,
+    required this.userImg,
+    required this.userName,
+    required this.isLive,
+    required this.userAddress,
   });
 }
 
 class OtherUser extends User {
   OtherUser({
-    String userImg,
-    String userName,
-    bool isLive,
-    userAddress,
+   required String userImg,
+   required String userName,
+   required bool isLive,
+   required userAddress,
   }) : super(
           userName: userName,
           userImg: userImg,
@@ -29,9 +29,9 @@ class OtherUser extends User {
 
 class LoginUser extends User {
   LoginUser({
-    String userImg,
-    String userName,
-    bool isLive,
+    required String userImg,
+    required String userName,
+    required bool isLive,
     userAddress,
   }) : super(
           userImg: userImg,
