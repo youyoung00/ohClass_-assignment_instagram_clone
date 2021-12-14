@@ -1,4 +1,3 @@
-import 'package:instargrame_assignment/model/user_data.dart';
 
 class CardItemData{
   final String cardImageUrl;

@@ -9,22 +9,22 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("LoginPage"),
+          title: const Text("LoginPage"),
         ),
         body: Center(
           child: Column(
             children: [
-              TextField(),
-              TextField(),
+              const TextField(),
+              const TextField(),
               ElevatedButton(
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => HomePage()),
+                          builder: (context) => const HomePage()),
                     );
                   },
-                  child: Text("Login!")),
+                  child: const Text("Login!")),
             ],
           ),
         ));

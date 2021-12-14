@@ -4,7 +4,7 @@ import 'package:instargrame_assignment/pages/album_page/album_page.dart';
 import 'package:instargrame_assignment/pages/home_page/card_items/card_items.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               _userAvatars(size),
-              Divider(
+              const Divider(
                 thickness: 1.0,
               ),
               ...fakeCardItems
@@ -38,26 +38,26 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
       backgroundColor: Colors.white10,
       elevation: 0.0,
-      title: Text(
+      title: const Text(
         "Instagram",
         style: TextStyle(color: Colors.black),
       ),
       actions: [
         IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.add_box_outlined,
               color: Colors.black,
             )),
         IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.favorite_border,
               color: Colors.black,
             )),
         IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.send,
               color: Colors.black,
             )),
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                 Stack(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 3),
+                      margin: const EdgeInsets.only(top: 3),
                       // color: Colors.blue,
                       height: 90,
                       child: CircleAvatar(
@@ -100,13 +100,13 @@ class _HomePageState extends State<HomePage> {
                     Positioned(
                       right: 2,
                       bottom: 2,
-                      child: Container(
+                      child: SizedBox(
                         // color: Colors.green,
                         width: 32,
                         height: 32,
                         child: FloatingActionButton(
                           onPressed: () {},
-                          child: Icon(Icons.add),
+                          child: const Icon(Icons.add),
                         ),
                       ),
                     ),
@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                     // color: Colors.red,
                     child: Text(
                       loginUser.userName,
-                      style: TextStyle(fontSize: 14),
+                      style: const TextStyle(fontSize: 14),
                     ),
                   ),
                 ),
@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 90,
                     // color: Colors.blue,
                     child: Stack(
@@ -159,8 +159,8 @@ class _HomePageState extends State<HomePage> {
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(4)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
+                            child: const Padding(
+                              padding: EdgeInsets.all(4.0),
                               child: Text(
                                 "LIVE",
                                 style: TextStyle(
@@ -203,10 +203,10 @@ class _HomePageState extends State<HomePage> {
         unselectedLabelColor: Colors.grey,
         labelColor: Colors.black,
         tabs: [
-          Tab(
+          const Tab(
             icon: Icon(Icons.home),
           ),
-          Tab(
+          const Tab(
             icon: Icon(Icons.search),
           ),
           Tab(
@@ -214,18 +214,18 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AlbumPage()),
+                  MaterialPageRoute(builder: (context) => const AlbumPage()),
                 );
               },
-              child: Icon(
+              child: const Icon(
                 Icons.featured_video_outlined,
               ),
             ),
           ),
-          Tab(
+          const Tab(
             icon: Icon(Icons.add_shopping_cart_outlined),
           ),
-          Tab(
+          const Tab(
             icon: Icon(Icons.account_circle),
           ),
         ],
