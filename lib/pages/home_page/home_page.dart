@@ -26,8 +26,8 @@ class _HomePageState extends State<HomePage> {
               ...fakeCardItems
                   .map<Widget>((e) => CardItem(
                         cardItemData: e,
-                        // otherUser: null,
-                      )).toList(),
+                      ))
+                  .toList(),
             ],
           ),
         ),
@@ -229,49 +229,6 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.account_circle),
           ),
         ],
-        // BottomNavigationBar(
-        //   type: BottomNavigationBarType.fixed,
-        //   items: [
-        //     BottomNavigationBarItem(
-        //         icon: Icon(
-        //           Icons.home,
-        //           color: Colors.black,
-        //         ),
-        //         label: ""),
-        //     BottomNavigationBarItem(
-        //         icon: Icon(
-        //           Icons.search,
-        //           color: Colors.black,
-        //         ),
-        //         label: ""),
-        //     BottomNavigationBarItem(
-        //         icon: GestureDetector(
-        //           onTap: () {
-        //             Navigator.push(
-        //               context,
-        //               MaterialPageRoute(builder: (context) => AlbumPage(),
-        //               ),
-        //             );
-        //           },
-        //           child: Icon(
-        //             Icons.featured_video_outlined,
-        //             color: Colors.black,
-        //           ),
-        //         ),
-        //         label: ""),
-        //     BottomNavigationBarItem(
-        //         icon: Icon(
-        //           Icons.add_shopping_cart_outlined,
-        //           color: Colors.black,
-        //         ),
-        //         label: ""),
-        //     BottomNavigationBarItem(
-        //         icon: Icon(
-        //           Icons.account_circle,
-        //           color: Colors.black,
-        //         ),
-        //         label: ""),
-        //   ],
       ),
     );
   }

@@ -5,13 +5,12 @@ import 'package:instargrame_assignment/model/user_data.dart';
 
 class CardItem extends StatefulWidget {
   final CardItemData cardItemData;
-
-  // final OtherUser otherUser;
+  final OtherUser? otherUser;
 
   const CardItem({
     Key? key,
     required this.cardItemData,
-    // required this.otherUser,
+    this.otherUser
   }) : super(key: key);
 
   @override
@@ -47,7 +46,7 @@ class _CardItemState extends State<CardItem> {
           children: [
             Row(
               children: [
-                Container(
+                SizedBox(
                   width: 80,
                   child: CircleAvatar(
                     maxRadius: 25.0,
@@ -60,22 +59,20 @@ class _CardItemState extends State<CardItem> {
                   children: [
                     Text(
                       loginUser.userName,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Text(loginUser.userAddress),
                   ],
                 ),
               ],
             ),
-            Container(
-              child: IconButton(
-                icon: Icon(
-                  Icons.more_horiz,
-                  color: Colors.black,
-                ),
-                onPressed: () {},
+            IconButton(
+              icon: const Icon(
+                Icons.more_horiz,
+                color: Colors.black,
               ),
+              onPressed: () {},
             )
           ],
         ));
@@ -94,11 +91,9 @@ class _CardItemState extends State<CardItem> {
         },
         itemCount: fakeCardItems.length,
         itemBuilder: (BuildContext context, int i) {
-          return Container(
-            child: Image.network(
-              fakeCardItems[i].cardImageUrl,
-              fit: BoxFit.cover,
-            ),
+          return Image.network(
+            fakeCardItems[i].cardImageUrl,
+            fit: BoxFit.cover,
           );
         },
       ),
@@ -106,7 +101,7 @@ class _CardItemState extends State<CardItem> {
   }
 
   Widget _cardBtmBar({required Size size}) {
-    return Container(
+    return SizedBox(
       height: 60,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,7 +109,7 @@ class _CardItemState extends State<CardItem> {
           Row(
             children: [
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.favorite_border,
                   color: Colors.black,
                   size: 32,
@@ -122,7 +117,7 @@ class _CardItemState extends State<CardItem> {
                 onPressed: () {},
               ),
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.chat_bubble_outline,
                   color: Colors.black,
                   size: 32,
@@ -130,7 +125,7 @@ class _CardItemState extends State<CardItem> {
                 onPressed: () {},
               ),
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.send,
                   color: Colors.black,
                   size: 32,
@@ -139,11 +134,11 @@ class _CardItemState extends State<CardItem> {
               ),
             ],
           ),
-          Container(
+          SizedBox(
             width: size.width / 3,
             child: Row(
                 children: fakeCardItems.map((e) {
-              return Container(
+              return SizedBox(
                   width: 14,
                   child: IconButton(
                       onPressed: () {
@@ -152,22 +147,20 @@ class _CardItemState extends State<CardItem> {
                           _selectIndex = fakeCardItems.indexOf(e);
                         });
                       },
-                      icon: Icon(Icons.fiber_manual_record),
+                      icon: const Icon(Icons.fiber_manual_record),
                       iconSize: 12.0,
                       color: _selectIndex == fakeCardItems.indexOf(e)
                           ? Colors.blue
                           : Colors.grey));
             }).toList()),
           ),
-          Container(
-            child: IconButton(
-              icon: Icon(
-                Icons.bookmark_border,
-                color: Colors.black,
-                size: 32,
-              ),
-              onPressed: () {},
+          IconButton(
+            icon: const Icon(
+              Icons.bookmark_border,
+              color: Colors.black,
+              size: 32,
             ),
+            onPressed: () {},
           )
         ],
       ),
@@ -178,7 +171,7 @@ class _CardItemState extends State<CardItem> {
     required Size size,
     required String userName,
   }) {
-    return Container(
+    return SizedBox(
       width: size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -187,7 +180,7 @@ class _CardItemState extends State<CardItem> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               widget.cardItemData.cardTitle,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
           Container(
@@ -198,19 +191,19 @@ class _CardItemState extends State<CardItem> {
                 children: <TextSpan>[
                   TextSpan(
                       text: loginUser.userName,
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
                   TextSpan(
                     text: widget.cardItemData.cardMainTxt,
                   ),
                   TextSpan(
                     text: widget.cardItemData.cardTag,
-                    style: TextStyle(color: Colors.blue),
+                    style: const TextStyle(color: Colors.blue),
                   ),
                 ],
               ),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 1.0,
           )
         ],

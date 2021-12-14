@@ -1,4 +1,3 @@
-
 class User {
   final String userImg;
   final String userName;
@@ -15,10 +14,10 @@ class User {
 
 class OtherUser extends User {
   OtherUser({
-   required String userImg,
-   required String userName,
-   required bool isLive,
-   required userAddress,
+    required String userImg,
+    required String userName,
+    required bool isLive,
+    required userAddress,
   }) : super(
           userName: userName,
           userImg: userImg,
@@ -40,4 +39,3 @@ class LoginUser extends User {
           userAddress: userAddress,
         );
 }
-
